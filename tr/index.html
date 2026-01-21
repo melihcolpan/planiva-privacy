@@ -4,60 +4,241 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planiva - Gizlilik Politikası</title>
+    <link rel="icon" type="image/png" href="../icon.png">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(160deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
-            line-height: 1.6;
-            color: #333;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 32px;
+            padding: 50px;
+            box-shadow:
+                0 25px 50px -12px rgba(0, 0, 0, 0.25),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
         }
-        h1 { color: #6366f1; }
-        h2 { color: #444; margin-top: 30px; }
-        .last-updated { color: #666; font-size: 14px; }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 24px;
+            margin: 0 auto 24px;
+            box-shadow:
+                0 20px 40px rgba(99, 102, 241, 0.3),
+                0 0 0 1px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .app-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #6366f1;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+        .last-updated {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 32px 0 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, #6366f1 0%, #a855f7 100%);
+            border-radius: 2px;
+        }
+        p {
+            color: #4b5563;
+            line-height: 1.8;
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+        ul {
+            margin: 16px 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        li {
+            color: #4b5563;
+            line-height: 1.8;
+            margin-bottom: 12px;
+            font-size: 15px;
+            padding-left: 28px;
+            position: relative;
+        }
+        li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border-radius: 50%;
+        }
+        li strong {
+            color: #1f2937;
+            font-weight: 600;
+        }
+        .footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+        .lang-switch {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 100;
+        }
+        .lang-switch a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .lang-switch a:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 16px;
+            }
+            .container {
+                padding: 32px 24px;
+                border-radius: 24px;
+            }
+            .logo {
+                width: 80px;
+                height: 80px;
+                border-radius: 20px;
+            }
+            h1 { font-size: 28px; }
+            h2 { font-size: 16px; }
+            .lang-switch {
+                top: 16px;
+                right: 16px;
+            }
+            .lang-switch a {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Planiva Gizlilik Politikası</h1>
-    <p class="last-updated">Son güncelleme: 21 Ocak 2026</p>
+    <div class="lang-switch">
+        <a href="../">🇬🇧 English</a>
+    </div>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="../icon.png" alt="Planiva">
+            </div>
+            <div class="app-name">Planiva</div>
+            <h1>Gizlilik Politikası</h1>
+            <p class="last-updated">Son güncelleme: 21 Ocak 2026</p>
+        </div>
 
-    <h2>Giriş</h2>
-    <p>Planiva ("biz") gizliliğinizi korumaya kararlıdır. Bu Gizlilik Politikası, mobil uygulamamızı kullandığınızda bilgilerinizi nasıl işlediğimizi açıklar.</p>
+        <h2>Giriş</h2>
+        <p>Planiva ("biz") gizliliğinizi korumaya kararlıdır. Bu Gizlilik Politikası, mobil uygulamamızı kullandığınızda bilgilerinizi nasıl işlediğimizi açıklar.</p>
 
-    <h2>Topladığımız Bilgiler</h2>
-    <p>Planiva gizlilik odaklı tasarlanmıştır. Minimum düzeyde veri toplarız:</p>
-    <ul>
-        <li><strong>Görev Verileri:</strong> Görevleriniz, listeleriniz ve şablonlarınız cihazınızda yerel olarak saklanır.</li>
-        <li><strong>iCloud Senkronizasyonu:</strong> iCloud senkronizasyonunu etkinleştirirseniz, verileriniz kişisel iCloud hesabınızda saklanır. Bu verilere erişimimiz yoktur.</li>
-        <li><strong>Satın Alma Bilgileri:</strong> Premium abonelik satın alırsanız, tüm ödeme işlemleri Apple tarafından gerçekleştirilir. Yalnızca satın alma durumunuzun onayını alırız.</li>
-    </ul>
+        <h2>Topladığımız Bilgiler</h2>
+        <p>Planiva gizlilik odaklı tasarlanmıştır. Minimum düzeyde veri toplarız:</p>
+        <ul>
+            <li><strong>Görev Verileri:</strong> Görevleriniz, listeleriniz ve şablonlarınız cihazınızda yerel olarak saklanır.</li>
+            <li><strong>iCloud Senkronizasyonu:</strong> iCloud senkronizasyonunu etkinleştirirseniz, verileriniz kişisel iCloud hesabınızda saklanır. Bu verilere erişimimiz yoktur.</li>
+            <li><strong>Satın Alma Bilgileri:</strong> Premium abonelik satın alırsanız, tüm ödeme işlemleri Apple tarafından gerçekleştirilir. Yalnızca satın alma durumunuzun onayını alırız.</li>
+        </ul>
 
-    <h2>Veri Depolama</h2>
-    <p>Tüm kişisel verileriniz (görevler, listeler, şablonlar) şuralarda saklanır:</p>
-    <ul>
-        <li>Cihazınızda yerel olarak</li>
-        <li>Kişisel iCloud hesabınızda (iCloud senkronizasyonu etkinse)</li>
-    </ul>
-    <p>Verilerinizi sunucularımızda saklamıyoruz.</p>
+        <h2>Veri Depolama</h2>
+        <p>Tüm kişisel verileriniz (görevler, listeler, şablonlar) şuralarda saklanır:</p>
+        <ul>
+            <li>Cihazınızda yerel olarak</li>
+            <li>Kişisel iCloud hesabınızda (iCloud senkronizasyonu etkinse)</li>
+        </ul>
+        <p>Verilerinizi sunucularımızda saklamıyoruz.</p>
 
-    <h2>Üçüncü Taraf Hizmetleri</h2>
-    <p>Planiva aşağıdaki üçüncü taraf hizmetlerini kullanır:</p>
-    <ul>
-        <li><strong>Apple iCloud:</strong> Cihazlarınız arasında isteğe bağlı veri senkronizasyonu için</li>
-        <li><strong>Apple StoreKit:</strong> Uygulama içi satın almaları işlemek için</li>
-    </ul>
+        <h2>Üçüncü Taraf Hizmetleri</h2>
+        <p>Planiva aşağıdaki üçüncü taraf hizmetlerini kullanır:</p>
+        <ul>
+            <li><strong>Apple iCloud:</strong> Cihazlarınız arasında isteğe bağlı veri senkronizasyonu için</li>
+            <li><strong>Apple StoreKit:</strong> Uygulama içi satın almaları işlemek için</li>
+        </ul>
 
-    <h2>Veri Paylaşımı</h2>
-    <p>Kişisel bilgilerinizi üçüncü taraflarla satmıyor, takas etmiyor veya paylaşmıyoruz.</p>
+        <h2>Veri Paylaşımı</h2>
+        <p>Kişisel bilgilerinizi üçüncü taraflarla satmıyor, takas etmiyor veya paylaşmıyoruz.</p>
 
-    <h2>Çocukların Gizliliği</h2>
-    <p>Planiva, 13 yaşın altındaki çocuklardan bilerek kişisel bilgi toplamaz. Uygulama tüm yaşlar için uygundur.</p>
+        <h2>Çocukların Gizliliği</h2>
+        <p>Planiva, 13 yaşın altındaki çocuklardan bilerek kişisel bilgi toplamaz. Uygulama tüm yaşlar için uygundur.</p>
 
-    <h2>Bu Politikadaki Değişiklikler</h2>
-    <p>Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz. Herhangi bir değişikliği bu sayfada yeni Gizlilik Politikasını yayınlayarak bildireceğiz.</p>
+        <h2>Bu Politikadaki Değişiklikler</h2>
+        <p>Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz. Herhangi bir değişikliği bu sayfada yeni Gizlilik Politikasını yayınlayarak bildireceğiz.</p>
 
-    <hr style="margin-top: 40px;">
-    <p style="font-size: 14px; color: #666;">&copy; 2026 Planiva. Tüm hakları saklıdır.</p>
+        <div class="footer">
+            <p>&copy; 2026 Planiva. Tüm hakları saklıdır.</p>
+        </div>
+    </div>
 </body>
 </html>
